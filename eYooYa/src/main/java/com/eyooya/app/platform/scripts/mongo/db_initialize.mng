@@ -1,0 +1,11 @@
+use eYooYa
+
+db.counters.insert({
+	  _id: "members",
+	  seq: 0
+})
+
+db.counters.insert({
+	  _id: "reviews",
+	  seq: 0
+})
