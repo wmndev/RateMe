@@ -4,22 +4,13 @@ package com.eyooya.app.platform.db.service.business;
 import org.springframework.stereotype.Service;
 
 import com.eyooya.app.platform.db.model.business.BusinessEntity;
-import com.eyooya.app.platform.db.service.CommonOperationsService;
+import com.eyooya.app.platform.db.service.CommonOperationsServiceImpl;
 
-@Service
-public class BusinessServiceImpl extends CommonOperationsService<BusinessEntity> implements BusinessService {
+@Service("businessService")
+public class BusinessServiceImpl extends CommonOperationsServiceImpl<BusinessEntity> implements BusinessService {
 
 	@Override
 	protected Class<BusinessEntity> getEntityClass() {
 		return BusinessEntity.class;
 	}
-
-
-
-
-
-	
-
-
-
 }
