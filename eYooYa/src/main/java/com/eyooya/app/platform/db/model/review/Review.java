@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection="reviews")
+@TypeAlias(value="review")
 public class Review implements Serializable {
 	
 	private static final long serialVersionUID = -5293158149824337466L;

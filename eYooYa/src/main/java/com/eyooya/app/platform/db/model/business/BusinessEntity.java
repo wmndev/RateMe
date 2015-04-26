@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.eyooya.app.platform.db.model.Address;
 import com.eyooya.app.platform.db.model.Contact;
 import com.eyooya.app.platform.db.model.Location;
 
+@Document(collection="businesses")
+@TypeAlias(value="business")
 public class BusinessEntity implements Serializable {
 	
 	private static final long serialVersionUID = -8161343581753299826L;
@@ -24,7 +28,7 @@ public class BusinessEntity implements Serializable {
 	
 	private Contact contact;
 	
-	private BussinessStats tats;
+	private BussinessStats stats;
 	
 	private String description;
 	
@@ -71,12 +75,12 @@ public class BusinessEntity implements Serializable {
 		this.contact = contact;
 	}
 
-	public BussinessStats getTats() {
-		return tats;
+	public BussinessStats getStats() {
+		return stats;
 	}
 
-	public void setTats(BussinessStats tats) {
-		this.tats = tats;
+	public void setStats(BussinessStats tats) {
+		this.stats = tats;
 	}
 
 	public String getDescription() {

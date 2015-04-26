@@ -2,12 +2,15 @@ package com.eyooya.app.platform.db.model.member;
 
 import java.io.Serializable;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.eyooya.app.platform.db.model.FlatStats;
 import com.eyooya.app.platform.db.model.Location;
 
 
-
+@Document(collection="members_level1")
+@TypeAlias(value="basicMemeber")
 public class BasicMember implements Serializable {
 	
 	private static final long serialVersionUID = 7585793280522327504L;
