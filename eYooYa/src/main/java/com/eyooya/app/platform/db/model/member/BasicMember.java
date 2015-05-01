@@ -9,7 +9,7 @@ import com.eyooya.app.platform.db.model.FlatStats;
 import com.eyooya.app.platform.db.model.Location;
 
 
-@Document(collection="members_level1")
+@Document(collection="basicMembers")
 @TypeAlias(value="basicMemeber")
 public class BasicMember implements Serializable {
 	

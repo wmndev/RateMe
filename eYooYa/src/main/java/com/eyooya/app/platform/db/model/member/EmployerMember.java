@@ -3,7 +3,7 @@ package com.eyooya.app.platform.db.model.member;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="members_level2")
+@Document(collection="employers")
 @TypeAlias(value="employer")
 public class EmployerMember extends BasicMember {
 	
