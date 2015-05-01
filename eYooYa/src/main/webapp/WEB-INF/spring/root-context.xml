@@ -10,8 +10,8 @@
 	<mongo:mongo id="mongo" host="127.0.0.1" port="27017" />
 	<mongo:db-factory dbname="eyooya" />
 
-<!-- 	<mongo:repositories base-package="com.eyooya.app.platform.db.repositories"
-		query-lookup-strategy="create-if-not-found" /> -->
+ 	<mongo:repositories base-package="com.eyooya.app.platform.db.repository"
+		query-lookup-strategy="create-if-not-found" /> 
 	
 	<!-- <repositories query-lookup-strategy="use-declared-query"/> -->
 

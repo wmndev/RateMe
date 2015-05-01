@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eyooya.app.platform.db.model.member.BasicMember;
-import com.eyooya.app.platform.db.service.CommonOperationsService;
+import com.eyooya.app.platform.db.repository.BasicMemberRepository;
 
 @RestController
 @RequestMapping("api/i/v1/member")
 public class MemberAPIController {
 	
 	@Autowired
-	private CommonOperationsService<BasicMember> memberService;
+	private BasicMemberRepository memberRepository;
 	
 	@RequestMapping(value = "/{id}",
             method = RequestMethod.GET)
 	public BasicMember getMemberById(@PathVariable("id") String id){
 		if (id != null){
-			return memberService.findById(Long.parseLong(id));
+			return memberRepository.findOne(Long.parseLong(id));
 		}
 		return null;
 	}

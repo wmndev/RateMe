@@ -8,13 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.eyooya.app.platform.db.model.review.Review;
-import com.eyooya.app.platform.db.service.CommonOperationsService;
+import com.eyooya.app.platform.db.repository.ReviewEntityRepository;
 import com.eyooya.app.platform.db.service.sequence.SequenceService;
+import com.eyooya.app.platform.type.StatusType;
 import com.rateme.app.platform.db.prepare.PrepareMongoTest;
 
 @ContextConfiguration(locations = {"test-root-context.xml",
@@ -24,8 +24,7 @@ import com.rateme.app.platform.db.prepare.PrepareMongoTest;
 public class BasicMemberRepositoryTest {
 	
 	@Autowired
-	@Qualifier("reviewService")
-	private CommonOperationsService<Review> reviewOperations;
+	private ReviewEntityRepository reviewRepository;
 	
 	@Autowired
 	private SequenceService seqService;
@@ -37,15 +36,15 @@ public class BasicMemberRepositoryTest {
 	
 	@Test
 	public void test1(){
-		assertEquals(3, reviewOperations.finalAll(Review.class).size());
+		assertEquals(3, reviewRepository.findAll().size());
 	}
 	
 	@Test
 	public void test2(){
 		Review rev = new Review();
 		rev.setId(seqService.getNextSequence("reviews"));
-		reviewOperations.insert(rev);
-		assertEquals(4, reviewOperations.finalAll(Review.class).size());		
+		reviewRepository.insert(rev);
+		assertEquals(4, reviewRepository.findAll().size());		
 	}
 	
 	

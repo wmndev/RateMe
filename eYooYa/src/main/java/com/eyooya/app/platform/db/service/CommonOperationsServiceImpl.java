@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import com.mongodb.WriteResult;
 
-public abstract class CommonOperationsServiceImpl <T> implements CommonOperationsService<T>{
+public abstract class CommonOperationsServiceImpl <T>{
 	
 	@Autowired
 	private MongoOperations mongo;
