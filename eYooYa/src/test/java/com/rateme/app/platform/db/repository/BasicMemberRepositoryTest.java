@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.eyooya.app.platform.db.model.review.Review;
 import com.eyooya.app.platform.db.repository.ReviewEntityRepository;
 import com.eyooya.app.platform.db.service.sequence.SequenceService;
-import com.eyooya.app.platform.type.StatusType;
 import com.rateme.app.platform.db.prepare.PrepareMongoTest;
 
 @ContextConfiguration(locations = {"test-root-context.xml",
