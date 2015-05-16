@@ -12,6 +12,7 @@ public class Details {
 	private String firstName;
 	private String LastName;
 	private Date birthday;
+	private boolean gender;
 	
 	public Contact getContact() {
 		return contact;
@@ -42,6 +43,12 @@ public class Details {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public boolean isGender() {
+		return gender;
+	}
+	public void setGender(boolean gender) {
+		this.gender = gender;
 	}	
 
 }

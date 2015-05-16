@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.eyooya.app.platform.db.model.FlatStats;
 import com.eyooya.app.platform.db.model.Location;
+import com.eyooya.app.platform.db.model.Reviews;
 
 
 @Document(collection="basicMembers")
@@ -22,7 +23,11 @@ public class BasicMember implements Serializable {
 	
 	private FlatStats flatStats;
 	
+	private Reviews reviews;
+	
 	private Location location;
+	
+	private Social social;
 
 	public long getId() {
 		return id;
@@ -54,5 +59,21 @@ public class BasicMember implements Serializable {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public Reviews getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Reviews reviews) {
+		this.reviews = reviews;
+	}
+
+	public Social getSocial() {
+		return social;
+	}
+
+	public void setSocial(Social social) {
+		this.social = social;
 	}
 }
