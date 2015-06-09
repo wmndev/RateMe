@@ -1,4 +1,4 @@
-package com.eyooya.app.platform.cache.trie;
+package com.eyooya.app.platform.cache.trie.model.impl.trie;
 
 public enum TrieCacheRecordType {
 	
@@ -13,7 +13,4 @@ public enum TrieCacheRecordType {
 	public char value(){
 		return this.value;
 	}
-	
-	
-
 }

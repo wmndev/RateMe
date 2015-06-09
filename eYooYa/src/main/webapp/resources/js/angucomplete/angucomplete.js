@@ -1,14 +1,16 @@
 /**
  * Angucomplete
  * Autocomplete directive for AngularJS
- * By Daryl Rowland
  */
 
 angular.module('angucomplete', [] )
-    .directive('angucomplete', function ($parse, $http) {
+    .directive('angucomplete', function ($parse, $http, $rootScope) {
     return {
-        restrict: 'EA',
+        restrict: 'E',
+        replace: true,
         scope: {
+        	ngModel: '=',
+        	dataBind:'&',
             "id": "@id",
             "placeholder": "@placeholder",
             "selectedObject": "=selectedobject",
@@ -22,9 +24,13 @@ angular.module('angucomplete', [] )
             "searchFields": "@searchfields",
             "minLengthUser": "@minlength",
             "datafield":"@datafield"
+             
         },
-        template: '<div class="angucomplete-holder"><input id="{{id}}_value" ng-model="searchStr" type="text" placeholder="{{placeholder}}" class="{{inputClass}}" ng-keyup="keyPressed($event)"/><div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-if="showDropdown"><div class="angucomplete-searching" ng-show="searching">Searching...</div><div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)">No results found</div><div class="angucomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseover="hoverRow()" ng-class="{\'angucomplete-selected-row\': $index == currentIndex}"><div ng-if="result.image && result.image != \'\'" class="angucomplete-image-holder"><img ng-src="{{result.image}}" class="angucomplete-image"/></div><div>{{result.title}}</div><div ng-if="result.description && result.description != \'\'" class="angucomplete-description">{{result.description}}</div></div></div></div>',
+        template: '<div class="angucomplete-holder">' +
+        	'<input id="{{id}}_value" ng-model="ngModel" type="text" placeholder="{{placeholder}}" class="{{inputClass}}" ng-keyup="keyPressed($event)"/>'+
+        '<div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-if="showDropdown"><div class="angucomplete-searching" ng-show="searching">Searching...</div><div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)">No results found</div><div class="angucomplete-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseover="hoverRow()" ng-class="{\'angucomplete-selected-row\': $index == currentIndex}"><div ng-if="result.image && result.image != \'\'" class="angucomplete-image-holder"><img ng-src="{{result.image}}" class="angucomplete-image"/></div><div>{{result.title}}</div><div ng-if="result.description && result.description != \'\'" class="angucomplete-description">{{result.description}}</div></div></div></div>',
         controller: function ( $scope ) {
+
             $scope.lastFoundWord = null;
             $scope.currentIndex = null;
             $scope.justChanged = false;
@@ -32,6 +38,7 @@ angular.module('angucomplete', [] )
             $scope.searching = false;
             $scope.pause = 500;
             $scope.minLength = 3;
+
 
             if ($scope.minLengthUser && $scope.minLengthUser != "") {
                 $scope.minLength = $scope.minLengthUser;
@@ -80,7 +87,7 @@ angular.module('angucomplete', [] )
                             description: description,
                             image: image,
                             originalObject: responseData[i]
-                        }
+                        };
 
                         $scope.results[$scope.results.length] = resultRow;
                     }
@@ -89,12 +96,10 @@ angular.module('angucomplete', [] )
                 } else {
                     $scope.results = [];
                 }
-            }
+            };
 
-            $scope.searchTimerComplete = function(str) {
+            $scope.searchTimerComplete = function(str, str2) {
                 // Begin the search
-
-            	
                 if (str.length >= $scope.minLength) {
                 	
                     if ($scope.localData) {
@@ -122,7 +127,8 @@ angular.module('angucomplete', [] )
 
 
                     } else {
-                        $http.get($scope.url + str, {}).
+               
+                        $http.get($scope.url + str+'&loc='+str2, {}).
                             success(function(responseData, status, headers, config) {
                                 $scope.searching = false;
                                 $scope.processResults(responseData[$scope.datafield]);
@@ -133,19 +139,20 @@ angular.module('angucomplete', [] )
                     }
                 }
 
-            }
+            };
 
             $scope.hoverRow = function(index) {
                 $scope.currentIndex = index;
-            }
+            };
 
             $scope.keyPressed = function(event) {
                 if (!(event.which == 38 || event.which == 40 || event.which == 13)) {
-                    if (!$scope.searchStr || $scope.searchStr == "") {
+                	
+                    if (!$scope.ngModel || $scope.ngModel == "") {
                         $scope.showDropdown = false;
                     } else {
 
-                        if ($scope.searchStr.length >= $scope.minLength) {
+                        if ($scope.ngModel.length >= $scope.minLength) {
                             $scope.showDropdown = true;
                             $scope.currentIndex = -1;
                             $scope.results = [];
@@ -157,7 +164,8 @@ angular.module('angucomplete', [] )
                             $scope.searching = true;
 
                             $scope.searchTimer = setTimeout(function() {
-                                $scope.searchTimerComplete($scope.searchStr);
+//                            	alert($rootScope.location);
+                                $scope.searchTimerComplete($scope.ngModel, $rootScope.location);
                             }, $scope.pause);
                         }
 
@@ -167,15 +175,14 @@ angular.module('angucomplete', [] )
                 } else {
                     event.preventDefault();
                 }
-            }
+            };
 
             $scope.selectResult = function(result) {
-                $scope.searchStr = result.title;
+                $scope.ngModel = result.title;
                 $scope.selectedObject = result;
                 $scope.showDropdown = false;
                 $scope.results = [];
-                //$scope.$apply();
-            }
+            };
         },
 
         link: function($scope, elem, attrs, ctrl) {

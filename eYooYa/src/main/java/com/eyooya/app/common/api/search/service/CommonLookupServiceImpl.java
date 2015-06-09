@@ -5,24 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eyooya.app.platform.cache.trie.TrieModelContainer;
+import com.eyooya.app.platform.cache.trie.TreeModelContainer;
 
 @Service
 public class CommonLookupServiceImpl implements CommonLookupService {
 
 	@Autowired
-	private TrieModelContainer trieContainer;
+	private TreeModelContainer trieContainer;
 
 	@Override
-	public List<String> findMatchedByPrefixAndTypes(String prefix,
-			LookupEntitiesTypes type) {
+	public void findByTokenWithLocationAndType(InternalSearchRequest request) {
 
-		switch (type) {
+		switch (request.getSearchType()) {
 		case BOTH_BUSINESS_AND_EMPLOYEE:
-			return trieContainer.getTrieCacheModel("1").search(prefix);
+			handleResult(trieContainer.getTreeCacheModel("1").search((String)request.getParameterValue("token")), request);
+			break;
 		default:
-			return null;
 
 		}
+	}
+
+	private void handleResult(List<String> searchResult, InternalSearchRequest request) {
+		request.setResponse(searchResult);
+		
 	}
 }

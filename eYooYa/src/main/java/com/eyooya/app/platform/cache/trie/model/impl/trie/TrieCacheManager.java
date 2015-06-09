@@ -1,19 +1,8 @@
-package com.eyooya.app.platform.cache.trie;
+package com.eyooya.app.platform.cache.trie.model.impl.trie;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-import com.eyooya.app.common.api.google.service.BusinessLookUpService;
-import com.eyooya.app.common.api.google.service.result.GooglePlace;
-import com.eyooya.app.common.api.google.service.result.PlcaesResponse;
-import com.eyooya.app.platform.cache.trie.model.TrieNode;
 
 
 public class TrieCacheManager {
@@ -21,36 +10,6 @@ public class TrieCacheManager {
 	private TrieNode root;
 	
 	private final char ROOT_CHAR= ' ';
-	
-
-	private BusinessLookUpService lookup;
-	
-
-	private void test(){
-		
-		PlcaesResponse res = lookup.lookInGoogleAPI();
-		System.out.println(res.getResults().size());
-		for (GooglePlace place : res.getResults()){
-			System.out.println(place.getName());
-			addEntityName(place.getName());
-			System.out.println("Entered:" + place.getName());
-		}
-		addEntityName("Itay Wiseman");
-		addEntityName("Itay Wisemaffg gfg nrt");
-		addEntityName("Itay Wisemangvcv");
-		addEntityName("Itay fgfgfg");
-		addEntityName("Itay fgbb  fdfg");
-		addEntityName("Itay fg");
-		addEntityName("Itay 546gfdg gfdg ");
-		addEntityName("Itay fdgdfgdf ");
-		addEntityName("Itay dfgdfg ");
-		addEntityName("Itay Wisgfdggdfeman");
-		addEntityName("Gilor Wiseman");
-		addEntityName("Jonathan Wiseman");
-		addEntityName("Hangal Olami");
-		addEntityName("Mekodedet");
-		addEntityName("Joseph Yosef");
-	}
 
 	/**
 	 * Add the give word into the Trie

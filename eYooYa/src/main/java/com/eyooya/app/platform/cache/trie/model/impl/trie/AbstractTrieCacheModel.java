@@ -1,4 +1,4 @@
-package com.eyooya.app.platform.cache.trie.model;
+package com.eyooya.app.platform.cache.trie.model.impl.trie;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -6,7 +6,9 @@ import java.util.ListIterator;
 
 import javax.annotation.PostConstruct;
 
-public abstract class AbstractTrieCacheModel implements TrieCacheModel {
+import com.eyooya.app.platform.cache.trie.model.TreeCacheModel;
+
+public abstract class AbstractTrieCacheModel implements TreeCacheModel {
 
 	private TrieNode root;
 
@@ -68,17 +70,12 @@ public abstract class AbstractTrieCacheModel implements TrieCacheModel {
 				TrieNode node = null;
 				while (iterator.hasNext()) {
 					node = iterator.next();
-//					if (Character.toUpperCase(node.getCharacter()) >= Character.toUpperCase(c))
-//						break;
 					if (Character.toUpperCase(node.getCharacter()) == Character.toUpperCase(c)) {
 						start = node;
 						found = true;
 						break;
 					}
 				}
-//				if (Character.toUpperCase(node.getCharacter()) == Character.toUpperCase(c)) {
-//					start = node;
-//				} else {
 				if(!found){
 					newNode = new TrieNode(c);
 					iterator.add(newNode);

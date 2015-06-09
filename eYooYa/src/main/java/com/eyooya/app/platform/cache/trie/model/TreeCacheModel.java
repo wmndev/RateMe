@@ -2,7 +2,9 @@ package com.eyooya.app.platform.cache.trie.model;
 
 import java.util.List;
 
-public interface TrieCacheModel {
+import com.eyooya.app.platform.cache.trie.model.impl.trie.TrieNode;
+
+public interface TreeCacheModel {
 	
 	
 	public List<String> search(String token);

@@ -1,4 +1,4 @@
-package com.eyooya.app.platform.cache.trie.model;
+package com.eyooya.app.platform.cache.trie.model.impl.trie;
 
 import java.util.LinkedList;
 import java.util.List;

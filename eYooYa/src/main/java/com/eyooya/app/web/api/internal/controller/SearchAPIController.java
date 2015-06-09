@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eyooya.app.common.api.search.service.CommonLookupService;
+import com.eyooya.app.common.api.search.service.InternalSearchRequest;
 import com.eyooya.app.common.api.search.service.LookupEntitiesTypes;
 import com.eyooya.app.web.api.response.model.SearchResponse;
 import com.eyooya.app.web.api.response.model.SearchResult;
@@ -21,17 +22,21 @@ public class SearchAPIController {
 	@Autowired
 	private CommonLookupService lookupService;
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/ac", method = RequestMethod.GET)
 	public SearchResponse searchACForBusinessAndEmployees(
-			@RequestParam("token") String token) {
+			@RequestParam("token") String token, 
+			@RequestParam("loc") String location) {
 
-		List<String> matches = lookupService.findMatchedByPrefixAndTypes(token,
-				LookupEntitiesTypes.BOTH_BUSINESS_AND_EMPLOYEE);
+		InternalSearchRequest request = InternalSearchRequest.generateRequest(LookupEntitiesTypes.BOTH_BUSINESS_AND_EMPLOYEE)
+				.addSearchParam("token", token).addSearchParam("location", location);
+		
+		lookupService.findByTokenWithLocationAndType(request);
 
 		List<SearchResult> results = new ArrayList<>();
-		if (matches != null){
+		if (request.getResponse() != null){
 			int idx = 1;
-			for (String match : matches) {
+			for (String match : (List<String>)request.getResponse()) {
 				results.add(new SearchResult(match, "The title" + (idx++),
 						"Description" + (idx++), "resources/images/img1.jpeg"));
 			}

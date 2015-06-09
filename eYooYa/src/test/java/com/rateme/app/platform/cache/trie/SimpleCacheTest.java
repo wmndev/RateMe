@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.eyooya.app.platform.cache.trie.TrieCacheManager;
+import com.eyooya.app.platform.cache.trie.model.impl.trie.TrieCacheManager;
 
 
 @ContextConfiguration(locations = {"test-root-context.xml",

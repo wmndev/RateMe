@@ -8,58 +8,75 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/rabbit
            http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
-           
-    
-    <context:property-placeholder location="classpath:google_api.properties" />
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing 
-		infrastructure -->
+	<beans:beans profile="dev,qa">
+		<context:property-placeholder location="classpath:google_api.properties,
+		    classpath:social.app.properties "  ignore-unresolvable="true" />
 
-	<context:component-scan base-package="com.eyooya.app" />
+		<context:component-scan base-package="com.eyooya.app" />
 
-	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
-		up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+		<!-- DispatcherServlet Context: defines this servlet's request-processing 
+			infrastructure -->
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<beans:bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
-	
-	
-	<!-- Rabbit MQ -->
-	
-	<rabbit:annotation-driven container-factory="rabbitListenerContainerFactory" />
-	
-	<rabbit:connection-factory id="connectionFactory"
-		host="localhost" username="springApp" password="springApp" />
+		<context:component-scan base-package="com.eyooya.app" />
 
-	<rabbit:template id="amqpTemplate" connection-factory="connectionFactory"
-		routing-key="review.q" queue="review.q" />
+		<!-- Enables the Spring MVC @Controller programming model -->
+		<annotation-driven />
 
-	<rabbit:admin connection-factory="connectionFactory" />
+		<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+			up static resources in the ${webappRoot}/resources directory -->
+		<resources mapping="/resources/**" location="/resources/" />
 
-	<rabbit:queue name="review.q" />
+		<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+			in the /WEB-INF/views directory -->
+		<beans:bean
+			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<beans:property name="prefix" value="/WEB-INF/views/" />
+			<beans:property name="suffix" value=".jsp" />
+		</beans:bean>
 
-	<rabbit:direct-exchange name="direct.exchange">
-		<rabbit:bindings>
-			<rabbit:binding queue="review.q" key="review.key"></rabbit:binding>
-		</rabbit:bindings>
-	</rabbit:direct-exchange>
 
-	<beans:bean id="rabbitListenerContainerFactory"
-		class="org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory">
-		<beans:property name="connectionFactory" ref="connectionFactory" />
-		<beans:property name="concurrentConsumers" value="3" />
-		<beans:property name="maxConcurrentConsumers" value="10" />
-	</beans:bean>
+		<!-- Rabbit MQ -->
 
-	<rabbit:listener-container id="listener.container"
-		connection-factory="connectionFactory"/>
+		<rabbit:annotation-driven container-factory="rabbitListenerContainerFactory" />
+
+		<rabbit:connection-factory id="connectionFactory"
+			host="localhost" username="springApp" password="springApp" />
+
+		<rabbit:template id="amqpTemplate" connection-factory="connectionFactory"
+			routing-key="review.q" queue="review.q" />
+
+		<rabbit:admin connection-factory="connectionFactory" />
+
+		<rabbit:queue name="review.q" />
+
+		<rabbit:direct-exchange name="direct.exchange">
+			<rabbit:bindings>
+				<rabbit:binding queue="review.q" key="review.key"></rabbit:binding>
+			</rabbit:bindings>
+		</rabbit:direct-exchange>
+
+		<beans:bean id="rabbitListenerContainerFactory"
+			class="org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory">
+			<beans:property name="connectionFactory" ref="connectionFactory" />
+			<beans:property name="concurrentConsumers" value="3" />
+			<beans:property name="maxConcurrentConsumers" value="10" />
+		</beans:bean>
+
+		<rabbit:listener-container id="listener.container"
+			connection-factory="connectionFactory" />
+
+
+		<!-- facebook -->
+
+		<!-- <beans:bean id="connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry"> 
+			<beans:property name="connectionFactories"> <beans:list> <beans:bean class="org.springframework.social.facebook.connect.FacebookConnectionFactory"> 
+			<beans:constructor-arg value="944913975521973" /> <beans:constructor-arg 
+			value="9198047afaa019f3acb040e533a45b64" /> </beans:bean> </beans:list> </beans:property> 
+			</beans:bean> <beans:bean class="org.springframework.social.connect.web.ConnectController"> 
+			<beans:constructor-arg value="connectionFactoryLocator"></beans:constructor-arg> 
+			</beans:bean> <beans:bean id="connectController" class="org.springframework.social.connect.web.ConnectController" 
+			autowire="constructor" /> -->
+	</beans:beans>
 </beans:beans>
