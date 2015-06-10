@@ -2,7 +2,7 @@ package com.eyooya.app.platform.cache.trie.model.impl.trie;
 
 public enum TrieCacheRecordType {
 	
-	BUSINESS('a'), EMPLOYEE('b');
+	BUSINESS('a'), EMPLOYEE('b'), BUSINESS_TYPE('c');
 	
 	private char value;
 	

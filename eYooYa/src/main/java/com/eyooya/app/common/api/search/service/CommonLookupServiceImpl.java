@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eyooya.app.platform.cache.trie.TreeModelContainer;
+import com.eyooya.app.platform.cache.trie.model.TreeCacheModel;
+import com.eyooya.app.platform.cache.trie.model.impl.trie.TreeCacheContainerKey;
 
 @Service
 public class CommonLookupServiceImpl implements CommonLookupService {
@@ -17,8 +19,11 @@ public class CommonLookupServiceImpl implements CommonLookupService {
 	public void findByTokenWithLocationAndType(InternalSearchRequest request) {
 
 		switch (request.getSearchType()) {
-		case BOTH_BUSINESS_AND_EMPLOYEE:
-			handleResult(trieContainer.getTreeCacheModel("1").search((String)request.getParameterValue("token")), request);
+		case BOTH_BUSINESS_AND_EMPLOYEE:		
+			for (TreeCacheModel treeCache : trieContainer.getTreeCacheModel(TreeCacheContainerKey.NYC)){
+				new TreeSearchThread(treeCache, (String)request.getParameterValue("token")).run();
+			}
+			
 			break;
 		default:
 

@@ -1,4 +1,4 @@
-package com.eyooya.app.platform.cache.trie.model.impl;
+package com.eyooya.app.platform.cache.trie.model.impl.nyc;
 
 import javax.annotation.PostConstruct;
 
@@ -13,7 +13,7 @@ import com.eyooya.app.platform.cache.trie.model.impl.trie.AbstractTrieCacheModel
 
 @Component
 @Scope("singleton")
-public class NewYorkTrieCacheModel extends AbstractTrieCacheModel {
+public class NewYorkBusinessTrieCacheModel extends AbstractTrieCacheModel implements NewYorkCache {
 
 	
 	@Autowired
@@ -25,25 +25,9 @@ public class NewYorkTrieCacheModel extends AbstractTrieCacheModel {
 		PlcaesResponse res = lookup.lookInGoogleAPI();
 
 		for (GooglePlace place : res.getResults()){
-			addWord(place.getName());
+			addWord(place.getName() + " Business");
 		}
-		
-		addWord("Pyrmont");
-		addWord("Wida");
-		addWord("Widgfg nrt");
-		addWord("Itay Wisemangvcv");
-		addWord("Itay fgfgfg");
-		addWord("Itay fgbb  fdfg");
-		addWord("Itay fg");
-		addWord("Itay 546gfdg gfdg");
-		addWord("Itay fdgdfgdf");
-		addWord("Itay dfgdfg");
-		addWord("Itay Wisgfdggdfeman");
-		addWord("Gilor Wiseman");
-		addWord("Jonathan Wiseman");
-		addWord("Hangal Olami");
-		addWord("Mekodedet");
-		addWord("Joseph Yosef");
+
 	}
 
 }
