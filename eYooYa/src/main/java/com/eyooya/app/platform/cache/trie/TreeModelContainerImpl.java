@@ -33,7 +33,7 @@ public class TreeModelContainerImpl implements TreeModelContainer {
 		if(cacheModels== null){
 			cacheModels = new LinkedList<>();
 		}
-		
+		cacheModels.add(tree);
 		cache.put(key, cacheModels);
 	}
 

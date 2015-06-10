@@ -25,7 +25,7 @@ public class NewYorkBusinessTrieCacheModel extends AbstractTrieCacheModel implem
 		PlcaesResponse res = lookup.lookInGoogleAPI();
 
 		for (GooglePlace place : res.getResults()){
-			addWord(place.getName() + " Business");
+			addWord("Business :" + place.getName());
 		}
 
 	}
