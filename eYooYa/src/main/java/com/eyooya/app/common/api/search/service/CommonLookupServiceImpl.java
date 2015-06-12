@@ -52,8 +52,5 @@ public class CommonLookupServiceImpl implements CommonLookupService, ThreadCompl
 			results.addAll(matches);
 		}
 		threadAliveCount--;
-		
-		
-		
 	}
 }
