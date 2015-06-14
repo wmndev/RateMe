@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -57,7 +61,6 @@
 							url="api/i/v1/serach/loc?token=" datafield="results"
 							titlefield="name,nickName" descriptionfield="description"
 							imagefield="pic" inputclass="form-control control-right input-md" />
-
 					</div>
 				</form>
 
@@ -85,20 +88,20 @@
 		</div>
 
 		<div class="col-sm-3 col-sm-offset-2">
-			<form id="fb_signin" action="signin/facebook" method="POST" class="form-horizontal">
+			<form id="fb_signin" action="signin/facebook" method="POST"
+				class="form-horizontal">
 
 
 				<div class="form-group">
 					<label for="submit" class="sr-only"></label>
-					<button type="submit" class="form-control btn btn-primary">Sign Up
-					using Facebook
-						</button>
+					<button type="submit" class="form-control btn btn-primary">Sign
+						Up using Facebook</button>
 				</div>
-				
+
 				<fieldset>
 					<legend align="center">OR</legend>
 				</fieldset>
-<%-- 
+				<%-- 
 
 				<button class="btn btn-default" type="submit">SignIn
 					using Facebook</button>
@@ -107,38 +110,37 @@
 
 			</form>
 
-
-
-
-			<form name="signup_form" id="signup_form" class="form-horizontal"
-				action="/signup" method="post">
+			<form:form modelAttribute="userSecurity" name="signup_form" id="signup_form"
+				class="form-horizontal" action="registration" method="post">
 				<div id="form-names" class="form-group">
 					<div class="col-sm-6 clear-input-padding">
-						<label for="firstname" class="sr-only"></label> <input
-							id="firstname"
+						<label for="firstName" class="sr-only"></label>
+						<form:input id="firstName" path="firstName"
 							class="form-control form-control-names input-group-lg"
-							type="text" name="firstname" title="First name"
-							placeholder="First name">
+							type="text" name="firstName" title="First name"
+							placeholder="First name" />
 					</div>
 					<div class="col-sm-6 clear-input-padding">
-						<label for="lastname" class="sr-only"></label> <input
-							id="lastname"
+						<label for="lastName" class="sr-only"></label>
+						<form:input id="lastName" path="lastName"
 							class="form-control form-control-names input-group-lg"
-							type="text" name="lastname" title="Last name"
-							placeholder="Last name">
+							type="text" name="lastName" title="Last name"
+							placeholder="Last name" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="email" class="sr-only"></label> <input id="email"
+					<label for="email" class="sr-only"></label>
+					<form:input id="email" path="email"
 						class="form-control input-group-lg" type="email" name="email"
-						title="Email" placeholder="Email">
+						title="Email" placeholder="Email" />
 				</div>
 
 				<div class="form-group">
-					<label for="password" class="sr-only"></label> <input id="password"
+					<label for="password" class="sr-only"></label>
+					<form:input id="password" path="password"
 						class="form-control input-group-lg" type="password"
-						name="password" title="Password" placeholder="Password">
+						name="password" title="Password" placeholder="Password" />
 				</div>
 
 				<div class="form-group">
@@ -150,12 +152,10 @@
 
 				<div class="form-group">
 					<label for="submit" class="sr-only"></label>
-					<button type="submit" class="form-control btn btn-primary">Sign up for
-						free</button>
+					<button type="submit" class="form-control btn btn-primary">Sign
+						up for free</button>
 				</div>
-
-
-			</form>
+			</form:form>
 
 		</div>
 	</section>
@@ -251,6 +251,6 @@
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 	<script src="resources/js/bootstrap/bootstrap.min.js"></script>
-	<script src="js/scripts.js"></script>
+
 </body>
 </html>

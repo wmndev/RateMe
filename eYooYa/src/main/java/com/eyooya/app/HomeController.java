@@ -20,63 +20,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.eyooya.app.platform.db.model.business.BusinessEntity;
+import com.eyooya.app.web.api.internal.controller.form.UserDetails;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-	
+
 	@Autowired
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	
-	
-    private Facebook facebook;
-//
-//    @Inject
-//    public HomeController(Facebook facebook) {
-//        this.facebook = facebook;
-//    }
+	private static final Logger logger = LoggerFactory
+			.getLogger(HomeController.class);
 
-    @RequestMapping(value = "/", method=RequestMethod.GET)
-    public String helloFacebook(Model model) {
-    	//facebook = new FacebookT
-//        if (true) {
-//           return "redirect:/auth/facebook";
-//        }
+	private Facebook facebook;
 
-//        model.addAttribute(facebook.userOperations().getUserProfile());
-//        PagedList<Post> homeFeed = facebook.feedOperations().getHomeFeed();
-//        model.addAttribute("feed", homeFeed);
+	//
+	// @Inject
+	// public HomeController(Facebook facebook) {
+	// this.facebook = facebook;
+	// }
 
-        return "home";
-    }
-	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String helloFacebook(Model model) {
+		// facebook = new FacebookT
+		// if (true) {
+		// return "redirect:/auth/facebook";
+		// }
+
+		// model.addAttribute(facebook.userOperations().getUserProfile());
+		// PagedList<Post> homeFeed = facebook.feedOperations().getHomeFeed();
+		// model.addAttribute("feed", homeFeed);
+		UserDetails userDetails = new UserDetails();
+		model.addAttribute("userSecurity", userDetails);
+		return "home";
+	}
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String home(Locale locale, Model model) {
-//		logger.info("Welcome home! The client locale is {}.", locale);
-//		
-//		Date date = new Date();
-//		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-//		
-//		String formattedDate = dateFormat.format(date);
-//		
-//		model.addAttribute("serverTime", formattedDate );
-//		
-//		
-//		BusinessEntity e = new BusinessEntity();
-//		e.setId(1);
-//		e.setDescription("test");
-////		bService.insert(e);
-//		
-//		return "home";
-//	}
-	
+	// @RequestMapping(value = "/", method = RequestMethod.GET)
+	// public String home(Locale locale, Model model) {
+	// logger.info("Welcome home! The client locale is {}.", locale);
+	//
+	// Date date = new Date();
+	// DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
+	// DateFormat.LONG, locale);
+	//
+	// String formattedDate = dateFormat.format(date);
+	//
+	// model.addAttribute("serverTime", formattedDate );
+	//
+	//
+	// BusinessEntity e = new BusinessEntity();
+	// e.setId(1);
+	// e.setDescription("test");
+	// // bService.insert(e);
+	//
+	// return "home";
+	// }
 
-	
 }
