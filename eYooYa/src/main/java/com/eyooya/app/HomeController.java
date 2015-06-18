@@ -40,7 +40,7 @@ public class HomeController {
 	// this.facebook = facebook;
 	// }
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
 	public String helloFacebook(Model model) {
 		// facebook = new FacebookT
 		// if (true) {
@@ -53,6 +53,11 @@ public class HomeController {
 		UserDetails userDetails = new UserDetails();
 		model.addAttribute("userSecurity", userDetails);
 		return "home";
+	}
+	
+	@RequestMapping(value = "/logon", method = RequestMethod.GET)
+	public String toLogon() {
+		return "logon";
 	}
 
 	/**

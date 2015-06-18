@@ -15,14 +15,13 @@
 	
 	<!-- secure the application´s urls with the specific Role --> 
 	<http auto-config="false"  use-expressions="true" >
-		<intercept-url pattern="/login" access="permitAll" />
+	    <!-- <csrf disabled="true"/> -->
+		<intercept-url pattern="/home" access="permitAll" requires-channel="https" />
 		<intercept-url pattern="/logout" access="permitAll" />
 		<intercept-url pattern="/accessdenied" access="permitAll" />
-		<!-- <intercept-url pattern="/listCampaigns" access="hasAnyRole('ROLE_ADMIN','ROLE_CAMPAIGN')" /> -->
-		<!-- <intercept-url pattern="/listUsers" access="hasRole('ROLE_ADMIN')" /> -->
-		<intercept-url pattern="/menu" access="hasAnyRole('ROLE_ADMIN','ROLE_BASIC')" />
+		<intercept-url pattern="/logon" access="hasAnyRole('ROLE_ADMIN','ROLE_BASIC')"/>
 		
-        <form-login login-page="/login" default-target-url="/menu" authentication-failure-url="/accessdenied"  />
+        <form-login login-page="/home" default-target-url="/logon" authentication-failure-url="/home?error="  />
 		<logout logout-success-url="/logout" />
 	</http>
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "userSecurity")
@@ -14,6 +15,7 @@ public class UserSecurity {
 	private long id;
 	private String name;
 	private String lastName;
+	@Indexed
 	private String username;
 	private String password;
 	private List<Integer> roles;

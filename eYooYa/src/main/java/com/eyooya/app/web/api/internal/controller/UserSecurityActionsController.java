@@ -82,12 +82,4 @@ public class UserSecurityActionsController {
 		}
 
 	}
-	// private Account createAccount(UserDetails form, BindingResult
-	// formBinding) {
-	// // TODO Auto-generated method stub
-	// Account account = new Account();
-	// account
-	//
-	// }
-
 }

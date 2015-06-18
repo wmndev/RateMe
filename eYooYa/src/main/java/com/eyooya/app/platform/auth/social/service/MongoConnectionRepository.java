@@ -1,4 +1,4 @@
-package com.eyooya.app.platform.config.social;
+package com.eyooya.app.platform.auth.social.service;
 
 import java.util.ArrayList;
 import java.util.Collections;

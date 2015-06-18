@@ -9,3 +9,6 @@ RABBITMQ
 5. from '/sbin' folder run: './rabbitmq-server status'
 6. login to RabbitMQ console @ http://localhost:15672/  guest/guest (or check online for default username/password)
 7. from ADMIN tab - create a new user: springApp/springApp with pemissions '/'
+
+STARTUP ARGs:
+1.Add -Dspring.profiles.active="dev"

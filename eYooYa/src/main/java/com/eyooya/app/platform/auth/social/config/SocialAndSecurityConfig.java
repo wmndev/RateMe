@@ -1,4 +1,4 @@
-package com.eyooya.app.platform.config.social;
+package com.eyooya.app.platform.auth.social.config;
 
 import javax.inject.Inject;
 
@@ -19,6 +19,7 @@ import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 
+import com.eyooya.app.platform.auth.social.service.MongoUsersConnectionRepository;
 import com.eyooya.app.platform.db.repository.UserSocialConnectionRepository;
 import com.eyooya.app.platform.db.service.security.prodiver.SpringSecuritySignInAdapter;
 

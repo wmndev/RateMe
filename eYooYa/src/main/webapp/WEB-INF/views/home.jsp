@@ -91,7 +91,8 @@
 			<form id="fb_signin" action="signin/facebook" method="POST"
 				class="form-horizontal">
 
-
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 				<div class="form-group">
 					<label for="submit" class="sr-only"></label>
 					<button type="submit" class="form-control btn btn-primary">Sign
@@ -110,8 +111,12 @@
 
 			</form>
 
-			<form:form modelAttribute="userSecurity" name="signup_form" id="signup_form"
-				class="form-horizontal" action="registration" method="post">
+			<form:form modelAttribute="userSecurity" name="signup_form"
+				id="signup_form" class="form-horizontal" action="registration"
+				method="post">
+
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 				<div id="form-names" class="form-group">
 					<div class="col-sm-6 clear-input-padding">
 						<label for="firstName" class="sr-only"></label>
