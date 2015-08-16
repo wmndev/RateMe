@@ -8,16 +8,16 @@ public class SearchResult implements Serializable{
 
 	private String name;
 	
-	private String nickName;
+	private String title;
 	
 	private String description;
 	
 	private String pic;
 	
 	
-	public SearchResult(String name, String nickName, String description, String pic){
+	public SearchResult(String name, String title, String description, String pic){
 		this.name = name;
-		this.nickName = nickName;
+		this.title = title;
 		this.description = description;	
 		this.pic = pic;
 	}
@@ -31,11 +31,11 @@ public class SearchResult implements Serializable{
 	}
 
 	public String getNickName() {
-		return nickName;
+		return title;
 	}
 
 	public void setNickName(String nickName) {
-		this.nickName = nickName;
+		this.title = nickName;
 	}
 
 	public String getDescription() {

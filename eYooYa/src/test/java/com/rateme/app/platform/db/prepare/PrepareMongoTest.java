@@ -20,7 +20,7 @@ public class PrepareMongoTest {
 
 	public static void prepareBusiness(SequenceService seqService) {
 		try {
-			client = new MongoClient("127.0.0.1", 27017);
+			client = new MongoClient("192.168.1.120", 27017);
 			DB db = client.getDB("test-yooya");
 			DBCollection businessDB = db.getCollection("business");
 
@@ -33,7 +33,7 @@ public class PrepareMongoTest {
 
 	public static void prepareReviews(SequenceService seqService) {
 		try {
-			client = new MongoClient("127.0.0.1", 27017);
+			client = new MongoClient("192.168.1.120", 27017);
 			DB db = client.getDB("test-yooya");
 			DBCollection reviews = db.getCollection("reviews");
 			reviews.drop();

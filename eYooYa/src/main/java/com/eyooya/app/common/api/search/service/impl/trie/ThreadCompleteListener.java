@@ -1,4 +1,4 @@
-package com.eyooya.app.common.api.search.service;
+package com.eyooya.app.common.api.search.service.impl.trie;
 
 import java.util.List;
 

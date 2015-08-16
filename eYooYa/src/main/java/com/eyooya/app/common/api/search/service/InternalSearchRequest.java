@@ -1,6 +1,9 @@
 package com.eyooya.app.common.api.search.service;
 
 import java.util.HashMap;
+import java.util.List;
+
+import com.eyooya.app.web.api.response.model.SearchResult;
 
 public class InternalSearchRequest {
 	
@@ -30,11 +33,12 @@ public class InternalSearchRequest {
 		
 	}
 	
-	public Object getResponse(){
-		return request.get(SearchRequestObjectsEnum.RESPONSE);
+	@SuppressWarnings("unchecked")
+	public List<SearchResult> getResponse(){
+		return (List<SearchResult>)request.get(SearchRequestObjectsEnum.RESPONSE);
 	}
 	
-	public void setResponse(Object response){
+	public void setResponse(List<SearchResult> response){
 		request.put(SearchRequestObjectsEnum.RESPONSE, response);
 	}
 	
