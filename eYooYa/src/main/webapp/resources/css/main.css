@@ -9,10 +9,14 @@ license: MIT
 author: bootply.com
 */
 .navbar-form .form-control {
-	width: 500px;
+	width: 300px;
 }
 
 .control-right {
+	width: 300px !important;
+}
+
+.control-left {
 	width: 200px !important;
 }
 
@@ -49,9 +53,9 @@ html,body {
 	background-color: #fff;
 }
 
-.navbar-trans {
-	background-color: #279ddd;
-	color: #fff;
+ .navbar-trans {
+	background-color: #446CB3;
+	/* color: #fff; */
 }
 
 .navbar-trans li>a:hover,.navbar-trans li>a:focus,.navbar-trans li.active

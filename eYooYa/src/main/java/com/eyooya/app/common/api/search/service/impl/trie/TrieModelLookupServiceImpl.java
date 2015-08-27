@@ -1,6 +1,5 @@
 package com.eyooya.app.common.api.search.service.impl.trie;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

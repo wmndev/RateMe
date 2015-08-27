@@ -1,34 +1,132 @@
 <!DOCTYPE html>
 
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <title>RateMe</title>
-<meta name="generator" content="Bootply" />
+<meta name="generator" content="rateMe" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-	rel="stylesheet">
-<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+<link href="resources/bootstrap/style/bootstrap.min.css"
+	rel="stylesheet" />
+
 <link href="resources/css/main.css" rel="stylesheet">
+<!-- <link href="resources/bootflat/css/bootflat.min.css" rel="stylesheet" /> -->
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
-<link rel="stylesheet"
-	href="resources/css/angucomplete/angucomplete.css" />
-<script src="resources/js/angucomplete/angucomplete.js"></script>
-<script src="resources/js/angucomplete/script.js"></script>
+<!-- script references -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="resources/plugins/typeahead/bootstrap3-typeahead.js"></script>
+<script src="resources/plugins/hogan/hogan-3.0.1.js"></script>
+<script>
+	$(document).ready(function() {
+		
+                                                            		
+		var templ =  Hogan.compile(['<div><img width=\"10%\"class=\"img-thumbnail\" src=\"{{pic}}\"/>',
+		                                '<strong>{{name}}</strong> - {{title}}</div>'
+		                           ].join(''));
+		
+
+ 		$('#name-search .typeahead').typeahead({
+			minLength : 1,
+			hint : true
+		}, {
+			limit : 7,
+			source : function(query, syncresults, process) {
+
+				if (typeof searching != 'undefined') {
+					clearTimeout(searching);
+					//process([]);
+				}
+				searching = setTimeout(function() {
+					return $.getJSON('api/i/v1/serach/ac?loc=nyc', {
+						token : query
+					}, function(data) {
+
+						// only search if stop typing for 300ms aka fast typers
+						return process(data.results); 
+					});
+				}, 300); // 300 ms
+			},
+			display: 'name',
+			 templates: {
+			    suggestion: function (data) {
+			    	return templ.render(data);			    
+			    }
+			}			 
+		});;
+		
+	});
+
+
+</script>
+
+<style type="text/css">
+.bs-example {
+	font-family: sans-serif;
+	position: relative;
+	margin: 100px;
+}
+/* .typeahead, .tt-query, .tt-hint {
+	border: 2px solid #CCCCCC;
+	border-radius: 8px;
+	font-size: 24px;
+	height: 30px;
+	line-height: 30px;
+	outline: medium none;
+	padding: 8px 12px;
+	width: 396px;
+} */
+.typeahead {
+	background-color: #FFFFFF;
+}
+
+.typeahead:focus {
+	border: 2px solid #0097CF;
+}
+
+.tt-query {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.tt-hint {
+	color: #999999;
+}
+
+.tt-dataset {
+	background-color: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	margin-top: 12px;
+	padding: 8px 0;
+	width: 422px;
+}
+
+.tt-suggestion {
+	font-size: 14px;
+	line-height: 14px;
+	padding: 3px 20px;
+}
+
+.tt-suggestion.tt-cursor {
+	background-color: #0097CF;
+	color: #FFFFFF;
+}
+
+.tt-suggestion p {
+	margin: 0;
+}
+
+
+</style>
 </head>
-<body ng-app="app">
+
+<body>
+
 	<nav class="navbar navbar-trans navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -38,224 +136,43 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">RateMe</a>
+				<!-- <a class="navbar-brand" href="#">RateMe</a> -->
 			</div>
 			<div class="navbar-collapse collapse" id="navbar-collapsible">
 
 				<form class="navbar-form navbar-left">
 
-					<div class="form-group">
-						<angucomplete id="members"
-							placeholder="Search employees, businesses and more" pause="100"
-							ng-model="searchStr1" minlength=2 selectedobject="nick"
-							dataBind="location" url="api/i/v1/serach/ac?token="
-							datafield="results" updateParent="updateParentModel()"
-							titlefield="name,nickName" descriptionfield="description"
-							imagefield="pic" inputclass="form-control input-md" />
+<!-- 					<div id="category-search" class="form-group">
+						<input class="typeahead form-control control-left input-sm"
+							type="text" placeholder="All">
+					</div>  -->
+
+					<div id="name-search" class="form-group">
+						<input class="typeahead form-control input-sm" type="text"
+							placeholder="Search employees, businesses and more">
 
 					</div>
 
-					<div class="form-group">
-						<angucomplete id="locations" placeholder="Location" pause="100"
-							ng-model="location" minlength=1 selectedobject="nick"
-							url="api/i/v1/serach/loc?token=" datafield="results"
-							titlefield="name,nickName" descriptionfield="description"
-							imagefield="pic" inputclass="form-control control-right input-md" />
+
+					<div id="location-search" class="form-group">
+						<input class="typeahead form-control control-right input-sm"
+							type="text" placeholder="Location">
 					</div>
 				</form>
 
 
-				<div class="nav navbar-nav navbar-right ">
+				<!-- 				<div class="nav navbar-nav navbar-right ">
 					<a href="#">Sign In</a>
-					</p>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</nav>
 
 
-	<section class="container">
-		<div class="row" style="margin: 50px;"></div>
-		<div class="col-sm-7">
-			<div class="row">
-				<header>
-					<h1>Good things happen when your stuff lives here</h1>
-					<h3>Dropbox keeps your files safe, synced, and easy to share.</h3>
-				</header>
-				<!--/row-->
-			</div>
-			<!--/container-->
-		</div>
-
-		<div class="col-sm-3 col-sm-offset-2">
-			<form id="fb_signin" action="signin/facebook" method="POST"
-				class="form-horizontal">
-
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-				<div class="form-group">
-					<label for="submit" class="sr-only"></label>
-					<button type="submit" class="form-control btn btn-primary">Sign
-						Up using Facebook</button>
-				</div>
-
-				<fieldset>
-					<legend align="center">OR</legend>
-				</fieldset>
-				<%-- 
-
-				<button class="btn btn-default" type="submit">SignIn
-					using Facebook</button>
-								<img
-					src="<c:url value="/resources/social/twitter/sign-in-with-twitter-d.png"/>" /> --%>
-
-			</form>
-
-			<form:form modelAttribute="userSecurity" name="signup_form"
-				id="signup_form" class="form-horizontal" action="registration"
-				method="post">
-
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
-				<div id="form-names" class="form-group">
-					<div class="col-sm-6 clear-input-padding">
-						<label for="firstName" class="sr-only"></label>
-						<form:input id="firstName" path="firstName"
-							class="form-control form-control-names input-group-lg"
-							type="text" name="firstName" title="First name"
-							placeholder="First name" />
-					</div>
-					<div class="col-sm-6 clear-input-padding">
-						<label for="lastName" class="sr-only"></label>
-						<form:input id="lastName" path="lastName"
-							class="form-control form-control-names input-group-lg"
-							type="text" name="lastName" title="Last name"
-							placeholder="Last name" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="email" class="sr-only"></label>
-					<form:input id="email" path="email"
-						class="form-control input-group-lg" type="email" name="email"
-						title="Email" placeholder="Email" />
-				</div>
-
-				<div class="form-group">
-					<label for="password" class="sr-only"></label>
-					<form:input id="password" path="password"
-						class="form-control input-group-lg" type="password"
-						name="password" title="Password" placeholder="Password" />
-				</div>
-
-				<div class="form-group">
-					<div class="checkbox">
-						<label><input type="checkbox">I agree to <a
-							href="#">RateMe tems</a> </label>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="submit" class="sr-only"></label>
-					<button type="submit" class="form-control btn btn-primary">Sign
-						up for free</button>
-				</div>
-			</form:form>
-
-		</div>
-	</section>
 
 
-	<section class="container" id="section7">
-		<h1 class="text-center">Social Media Fascination</h1>
-		<div class="row">
-			<!--fontawesome icons-->
-			<div class="col-sm-1 col-sm-offset-2 col-xs-4 text-center">
-				<i class="fa fa-github fa-4x"></i>
-			</div>
-			<div class="col-sm-1 col-xs-4 text-center">
-				<i class="fa fa-foursquare fa-4x"></i>
-			</div>
-			<div class="col-sm-1 col-xs-4 text-center">
-				<i class="fa fa-facebook fa-4x"></i>
-			</div>
-			<div class="col-sm-1 col-xs-4 text-center">
-				<i class="fa fa-pinterest fa-4x"></i>
-			</div>
-			<div class="col-sm-1 col-xs-4 text-center">
-				<i class="fa fa-google-plus fa-4x"></i>
-			</div>
-			<div class="col-sm-1 col-xs-4 text-center">
-				<i class="fa fa-twitter fa-4x"></i>
-			</div>
-			<div class="col-sm-1 col-xs-4 text-center">
-				<i class="fa fa-dribbble fa-4x"></i>
-			</div>
-			<div class="col-sm-1 col-xs-4 text-center">
-				<i class="fa fa-instagram fa-4x"></i>
-			</div>
-		</div>
-		<!--/row-->
-		<div class="row">
-			<div class="col-md-12 text-center">
-				<br> <br>
-				<p>
-					<a
-						href="http://www.bootstrapzero.com/bootstrap-template/sectionalize">Get
-						the code for this template.</a>
-				</p>
-			</div>
-		</div>
-	</section>
 
-	<footer id="footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-6 col-sm-6 col-md-3 column">
-					<h4>Information</h4>
-					<ul class="nav">
-						<li><a href="about-us.html">Products</a></li>
-						<li><a href="about-us.html">Services</a></li>
-						<li><a href="about-us.html">Benefits</a></li>
-						<li><a href="elements.html">Developers</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-6 col-md-3 column">
-					<h4>Follow Us</h4>
-					<ul class="nav">
-						<li><a href="#">Twitter</a></li>
-						<li><a href="#">Facebook</a></li>
-						<li><a href="#">Google+</a></li>
-						<li><a href="#">Pinterest</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-6 col-md-3 column">
-					<h4>Contact Us</h4>
-					<ul class="nav">
-						<li><a href="#">Email</a></li>
-						<li><a href="#">Headquarters</a></li>
-						<li><a href="#">Management</a></li>
-						<li><a href="#">Support</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-6 col-md-3 column">
-					<h4>Customer Service</h4>
-					<ul class="nav">
-						<li><a href="#">About Us</a></li>
-						<li><a href="#">Delivery Information</a></li>
-						<li><a href="#">Privacy Policy</a></li>
-						<li><a href="#">Terms &amp; Conditions</a></li>
-					</ul>
-				</div>
-			</div>
-			<!--/row-->
-		</div>
-	</footer>
-
-	<!-- script references -->
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-	<script src="resources/js/bootstrap/bootstrap.min.js"></script>
 
 </body>
+
 </html>

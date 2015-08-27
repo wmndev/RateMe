@@ -1,6 +1,7 @@
 package com.eyooya.app.platform.db.service;
 
 import java.util.List;
+
 import com.mongodb.WriteResult;
 
 public interface CommonOperationsService<T> {

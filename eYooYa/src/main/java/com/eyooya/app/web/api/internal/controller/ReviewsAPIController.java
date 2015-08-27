@@ -3,7 +3,6 @@ package com.eyooya.app.web.api.internal.controller;
 import java.util.List;
 
 import org.springframework.amqp.core.AmqpTemplate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.Message;

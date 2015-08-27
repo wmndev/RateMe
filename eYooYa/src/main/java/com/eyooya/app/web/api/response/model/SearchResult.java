@@ -30,12 +30,12 @@ public class SearchResult implements Serializable{
 		this.name = name;
 	}
 
-	public String getNickName() {
+	public String getTitle() {
 		return title;
 	}
 
-	public void setNickName(String nickName) {
-		this.title = nickName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
