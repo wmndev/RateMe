@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eyooya.app.common.api.google.service.GeocodingService;
+import com.eyooya.app.common.api.google.service.result.Location;
 import com.eyooya.app.common.api.search.service.BasicSearchRequestParams;
 import com.eyooya.app.common.api.search.service.CommonLookupService;
 import com.eyooya.app.common.api.search.service.InternalSearchRequest;
@@ -25,6 +27,9 @@ public class SearchAPIController {
 	@Autowired
 	@Qualifier("solrLookup")
 	private CommonLookupService lookupService;
+	
+	@Autowired
+	private GeocodingService geocodingService;
 
 	@Autowired
 	private MemberSolrIndexService solrService;
@@ -32,16 +37,19 @@ public class SearchAPIController {
 	@RequestMapping(value = "/ac", method = RequestMethod.GET)
 	public SearchResponse searchACForBusinessAndEmployees(
 			@RequestParam("token") String prefix,
-			@RequestParam("loc") String state) {
+			@RequestParam(value="loc", defaultValue="NYC") String location) {
+		
+		
+		Point geocodePoint = geocodingService.addressGeocoding(location);
+		System.out.println(geocodePoint);
 		SearchResponse response = new SearchResponse();
+
 		InternalSearchRequest request = InternalSearchRequest.generateRequest(
 				LookupEntitiesTypes.BUSINESS_AND_EMPLOYEE).addSearchParam(
 				SolrSearchRequestParams.NAME.name(), prefix).
-				addSearchParam(SolrSearchRequestParams.POINT.name(), new Point(6,11)).
+				addSearchParam(SolrSearchRequestParams.POINT.name(), geocodePoint).
 				addSearchParam(SolrSearchRequestParams.DISTANCE_IN_KM.name(), 1.0).addSearchParam(BasicSearchRequestParams.PAGE_NUM.name(), 0).
 				addSearchParam(BasicSearchRequestParams.SIZE_OF_RESULTS_IN_PAGE.name(), 4);
-
-		//lookupService.findByName(request);
 		
 		lookupService.findByNameFilterByLocation(request);
 

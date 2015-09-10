@@ -6,7 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PlcaesResponse implements Serializable{
+public class GoogleApiResponse implements Serializable{
 	
 	private List<GooglePlace> results;
 	private String status;

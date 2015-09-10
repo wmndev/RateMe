@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.eyooya.app.common.api.google.service.BusinessLookUpService;
 import com.eyooya.app.common.api.google.service.result.GooglePlace;
-import com.eyooya.app.common.api.google.service.result.PlcaesResponse;
+import com.eyooya.app.common.api.google.service.result.GoogleApiResponse;
 import com.eyooya.app.platform.cache.trie.model.impl.trie.AbstractTrieCacheModel;
 
 @Component
@@ -22,7 +22,7 @@ public class NewYorkBusinessTrieCacheModel extends AbstractTrieCacheModel implem
 	@Override
 	@PostConstruct
 	public void buildTrieModel() {
-		PlcaesResponse res = lookup.lookInGoogleAPI();
+		GoogleApiResponse res = lookup.lookInGoogleAPI();
 
 		for (GooglePlace place : res.getResults()){
 			addWord("Business :" + place.getName());

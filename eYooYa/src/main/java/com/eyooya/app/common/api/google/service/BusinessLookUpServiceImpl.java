@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.eyooya.app.common.api.google.service.result.PlcaesResponse;
+import com.eyooya.app.common.api.google.service.result.GoogleApiResponse;
 import com.eyooya.app.common.api.google.type.PlaceLookupHttpURLs;
 
 /**
@@ -14,14 +14,14 @@ import com.eyooya.app.common.api.google.type.PlaceLookupHttpURLs;
 @Service
 public class BusinessLookUpServiceImpl implements BusinessLookUpService {
 	
-	@Value("${places.server.key}")
+	@Value("${server.api.key}")
 	private String serverApiKey;
 	
 
 	@Override
-	public PlcaesResponse lookInGoogleAPI() {
+	public GoogleApiResponse lookInGoogleAPI() {
 		RestTemplate restTemplate = new RestTemplate();
-		return restTemplate.getForObject(PlaceLookupHttpURLs.NEAR_BY.uri(), PlcaesResponse.class,"-33.8670522","151.1957362","500", serverApiKey);
+		return restTemplate.getForObject(PlaceLookupHttpURLs.NEAR_BY.uri(), GoogleApiResponse.class,"-33.8670522","151.1957362","500", serverApiKey);
 	}
 
 	@Override

@@ -21,10 +21,49 @@
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="resources/plugins/typeahead/bootstrap3-typeahead.js"></script>
 <script src="resources/plugins/hogan/hogan-3.0.1.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap"
+        async defer></script>
 <script>
 	$(document).ready(function() {
 		
-                                                            		
+		var location = 'nyc';
+    
+  	   $("#location").keyup(function(){
+ 		   location = $("#location").val();
+ 		   	
+ 		   }
+ 	   );
+
+
+/* 	    $('#location-search .typeahead').typeahead({
+	        highlight: true
+	    }, {
+	        name: 'locations',
+	        source: locations
+	    }).on('typeahead:selected', function (e, datum) {
+	    	location = datum;	
+	    	
+	    	var geocoder = new google.maps.Geocoder();
+	    	  geocoder.geocode({'address': '10036'}, function(results, status) {
+	    		    if (status === google.maps.GeocoderStatus.OK) {
+	    		    	
+	    		    alert(results[0].geometry.location);
+	    		      //resultsMap.setCenter(results[0].geometry.location);
+	    		      /* var marker = new google.maps.Marker({
+	    		        map: resultsMap,
+	    		        position: results[0].geometry.location
+	    		      }); 
+	    		    } else {
+	    		      alert('Geocode was not successful for the following reason: ' + status);
+	    		    }
+	    	  }); 
+	    	
+	    	
+	    	
+	    }); */
+	    
+	
+		                                            		
 		var templ =  Hogan.compile(['<div><img width=\"10%\"class=\"img-thumbnail\" src=\"{{pic}}\"/>',
 		                                '<strong>{{name}}</strong> - {{title}}</div>'
 		                           ].join(''));
@@ -41,9 +80,14 @@
 					clearTimeout(searching);
 					//process([]);
 				}
+				
+				
+				
 				searching = setTimeout(function() {
-					return $.getJSON('api/i/v1/serach/ac?loc=nyc', {
-						token : query
+					return $.getJSON('api/i/v1/serach/ac?', {
+						
+						token : query,
+						loc : location
 					}, function(data) {
 
 						// only search if stop typing for 300ms aka fast typers
@@ -142,28 +186,20 @@
 
 				<form class="navbar-form navbar-left">
 
-<!-- 					<div id="category-search" class="form-group">
-						<input class="typeahead form-control control-left input-sm"
-							type="text" placeholder="All">
-					</div>  -->
+
 
 					<div id="name-search" class="form-group">
-						<input class="typeahead form-control input-sm" type="text"
+						<input id="prefix" name="prefix" class="typeahead form-control input-sm" type="text"
 							placeholder="Search employees, businesses and more">
 
 					</div>
 
 
 					<div id="location-search" class="form-group">
-						<input class="typeahead form-control control-right input-sm"
+						<input id="location" name="location" class="form-control control-right input-sm"
 							type="text" placeholder="Location">
 					</div>
 				</form>
-
-
-				<!-- 				<div class="nav navbar-nav navbar-right ">
-					<a href="#">Sign In</a>
-				</div> -->
 			</div>
 		</div>
 	</nav>

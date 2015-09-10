@@ -1,10 +1,10 @@
 package com.eyooya.app.common.api.google.service;
 
-import com.eyooya.app.common.api.google.service.result.PlcaesResponse;
+import com.eyooya.app.common.api.google.service.result.GoogleApiResponse;
 
 public interface BusinessLookUpService {
 	
-	public PlcaesResponse lookInGoogleAPI();
+	public GoogleApiResponse lookInGoogleAPI();
 	
 	public Object lookInCacheAndDB();
 
