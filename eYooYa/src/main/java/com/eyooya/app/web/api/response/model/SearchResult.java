@@ -14,12 +14,16 @@ public class SearchResult implements Serializable{
 	
 	private String pic;
 	
+	private String id;
 	
-	public SearchResult(String name, String title, String description, String pic){
+	
+	public SearchResult(String id, String name, String title, String description, String pic){
+		this.id = id;
 		this.name = name;
 		this.title = title;
 		this.description = description;	
 		this.pic = pic;
+		
 	}
 
 	public String getName() {
@@ -52,6 +56,14 @@ public class SearchResult implements Serializable{
 
 	public void setPic(String pic) {
 		this.pic = pic;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

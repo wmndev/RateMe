@@ -1,13 +1,4 @@
-/*
-A custom Bootstrap 3.1 template
-from http://bootply.com
 
-This CSS code should follow the 'bootstrap.css'
-in your HTML file.
-
-license: MIT
-author: bootply.com
-*/
 .navbar-form .form-control {
 	width: 300px;
 }
@@ -54,14 +45,11 @@ html,body {
 }
 
  .navbar-trans {
-	background-color: #446CB3;
+	background-color: #ede8e8;
 	/* color: #fff; */
 }
 
-.navbar-trans li>a:hover,.navbar-trans li>a:focus,.navbar-trans li.active
-	{
-	background-color: #38afef;
-}
+
 
 .navbar-trans a {
 	color: #fefefe;
@@ -79,7 +67,7 @@ html,body {
 section {
 	padding-top: 70px;
 	padding-bottom: 50px;
-	min-height: calc(100% -         1px);
+	min-height: calc(100% - 1px);
 }
 
 .v-center {

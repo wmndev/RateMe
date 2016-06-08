@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eyooya.app.common.api.google.service.BusinessLookUpService;
+import com.eyooya.app.common.api.google.service.BusinessLookupService;
 import com.eyooya.app.platform.db.model.review.Review;
 import com.eyooya.app.platform.db.repository.ReviewEntityRepository;
 import com.eyooya.app.web.api.response.BasicResponse;
@@ -29,7 +29,7 @@ public class ReviewsAPIController {
 	private AmqpTemplate rabbitTemplate;
 	
 	@Autowired
-	private BusinessLookUpService bService;
+	private BusinessLookupService bService;
 	
 	@RequestMapping(value = "/{id}",
             method = RequestMethod.GET,

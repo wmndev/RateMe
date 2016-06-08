@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.eyooya.app.common.api.google.service.BusinessLookUpService;
+import com.eyooya.app.common.api.google.service.BusinessLookupService;
 import com.eyooya.app.platform.cache.trie.model.impl.trie.AbstractTrieCacheModel;
 
 @Component
@@ -15,7 +15,7 @@ public class NewYorkEmployeeTrieCacheModel extends AbstractTrieCacheModel implem
 
 	
 	@Autowired
-	private BusinessLookUpService lookup;
+	private BusinessLookupService lookup;
 	
 	@Override
 	@PostConstruct

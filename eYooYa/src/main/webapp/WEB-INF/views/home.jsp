@@ -12,7 +12,7 @@
 <link href="resources/bootstrap/style/bootstrap.min.css"
 	rel="stylesheet" />
 
-<link href="resources/css/main.css" rel="stylesheet">
+<link href="resources/style/css/main.css" rel="stylesheet">
 <!-- <link href="resources/bootflat/css/bootflat.min.css" rel="stylesheet" /> -->
 
 
@@ -21,92 +21,11 @@
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="resources/plugins/typeahead/bootstrap3-typeahead.js"></script>
 <script src="resources/plugins/hogan/hogan-3.0.1.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap"
-        async defer></script>
-<script>
-	$(document).ready(function() {
-		
-		var location = 'nyc';
-    
-  	   $("#location").keyup(function(){
- 		   location = $("#location").val();
- 		   	
- 		   }
- 	   );
+<script
+	src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap"
+	async defer></script>
 
-
-/* 	    $('#location-search .typeahead').typeahead({
-	        highlight: true
-	    }, {
-	        name: 'locations',
-	        source: locations
-	    }).on('typeahead:selected', function (e, datum) {
-	    	location = datum;	
-	    	
-	    	var geocoder = new google.maps.Geocoder();
-	    	  geocoder.geocode({'address': '10036'}, function(results, status) {
-	    		    if (status === google.maps.GeocoderStatus.OK) {
-	    		    	
-	    		    alert(results[0].geometry.location);
-	    		      //resultsMap.setCenter(results[0].geometry.location);
-	    		      /* var marker = new google.maps.Marker({
-	    		        map: resultsMap,
-	    		        position: results[0].geometry.location
-	    		      }); 
-	    		    } else {
-	    		      alert('Geocode was not successful for the following reason: ' + status);
-	    		    }
-	    	  }); 
-	    	
-	    	
-	    	
-	    }); */
-	    
-	
-		                                            		
-		var templ =  Hogan.compile(['<div><img width=\"10%\"class=\"img-thumbnail\" src=\"{{pic}}\"/>',
-		                                '<strong>{{name}}</strong> - {{title}}</div>'
-		                           ].join(''));
-		
-
- 		$('#name-search .typeahead').typeahead({
-			minLength : 1,
-			hint : true
-		}, {
-			limit : 7,
-			source : function(query, syncresults, process) {
-
-				if (typeof searching != 'undefined') {
-					clearTimeout(searching);
-					//process([]);
-				}
-				
-				
-				
-				searching = setTimeout(function() {
-					return $.getJSON('api/i/v1/serach/ac?', {
-						
-						token : query,
-						loc : location
-					}, function(data) {
-
-						// only search if stop typing for 300ms aka fast typers
-						return process(data.results); 
-					});
-				}, 300); // 300 ms
-			},
-			display: 'name',
-			 templates: {
-			    suggestion: function (data) {
-			    	return templ.render(data);			    
-			    }
-			}			 
-		});;
-		
-	});
-
-
-</script>
+<script src="resources/js/home.js"></script>
 
 <style type="text/css">
 .bs-example {
@@ -164,8 +83,6 @@
 .tt-suggestion p {
 	margin: 0;
 }
-
-
 </style>
 </head>
 
@@ -185,30 +102,23 @@
 			<div class="navbar-collapse collapse" id="navbar-collapsible">
 
 				<form class="navbar-form navbar-left">
-
-
-
 					<div id="name-search" class="form-group">
-						<input id="prefix" name="prefix" class="typeahead form-control input-sm" type="text"
+						<input id="prefix" name="prefix"
+							class="typeahead form-control input-sm" type="text"
 							placeholder="Search employees, businesses and more">
 
 					</div>
 
 
 					<div id="location-search" class="form-group">
-						<input id="location" name="location" class="form-control control-right input-sm"
-							type="text" placeholder="Location">
+						<input id="location" name="location"
+							class="form-control control-right input-sm" type="text"
+							placeholder="Location">
 					</div>
 				</form>
 			</div>
 		</div>
 	</nav>
-
-
-
-
-
-
 </body>
 
 </html>
